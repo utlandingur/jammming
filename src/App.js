@@ -8,6 +8,7 @@ function App() {
   const [authToken, setAuthToken] = useState("");
 
   const updateAuthToken = (val) => {
+    console.log("here");
     const tmp = val;
     setAuthToken(tmp);
   };
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <Authentication authToken={authToken} updateAuthToken={updateAuthToken} />
-      <SearchContainer />
+      <SearchContainer authToken={authToken} />
     </>
   );
 }

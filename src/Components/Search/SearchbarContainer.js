@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Searchbar from "./Searchbar";
+import axios from "axios";
 
 export default function SearchContainer(props) {
   const [searchInput, setSearchInput] = useState("");
@@ -7,24 +8,22 @@ export default function SearchContainer(props) {
     setSearchInput(target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    search();
-    alert("Submitted your search... " + searchInput + "\nNow clearing");
-    setSearchInput("");
-  };
-
-  const search = async () => {
+    console.log(props.authToken);
+    console.log(searchInput);
     const endpoint = "https://api.spotify.com/v1/search";
-    const query = endpoint + "?q=" + searchInput;
-    const result = await fetch(query, {
-      mode: "cors",
+    const { data } = await axios.get(endpoint, {
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${props.authToken}`,
+      },
+      params: {
+        q: searchInput,
+        type: "artist",
       },
     });
-    console.log(result);
+
+    console.log(data);
   };
 
   return (
@@ -35,6 +34,7 @@ export default function SearchContainer(props) {
         handleSubmit={handleSubmit}
       />
       <p>{searchInput}</p>
+      <p>{props.authToken ?? "Empty"}</p>
     </>
   );
 }

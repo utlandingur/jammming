@@ -10,7 +10,6 @@ export default function Authentication(props) {
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
-
     if (!token && hash) {
       let urlParams = new URLSearchParams(
         window.location.hash.replace("#", "?")
@@ -18,8 +17,8 @@ export default function Authentication(props) {
       let token = urlParams.get("access_token");
       window.location.hash = "";
       window.localStorage.setItem("token", token);
-      props.updateAuthToken(token);
     }
+    props.updateAuthToken(token);
   }, []);
 
   const handleOnClick = () => {

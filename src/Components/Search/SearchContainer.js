@@ -4,7 +4,7 @@ import SearchbarContainer from "./SearchbarContainer";
 export default function SearchContainer(props) {
   return (
     <>
-      <SearchbarContainer />
+      <SearchbarContainer authToken={props.authToken} />
     </>
   );
 }
