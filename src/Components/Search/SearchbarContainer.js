@@ -10,8 +10,6 @@ export default function SearchContainer(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(props.authToken);
-    console.log(searchInput);
     const endpoint = "https://api.spotify.com/v1/search";
     const { data } = await axios.get(endpoint, {
       headers: {
@@ -19,11 +17,10 @@ export default function SearchContainer(props) {
       },
       params: {
         q: searchInput,
-        type: "artist",
+        type: "track",
       },
     });
-
-    console.log(data);
+    props.updateTracks(data.tracks.items);
   };
 
   return (
@@ -33,8 +30,6 @@ export default function SearchContainer(props) {
         handleUserInput={handleUserInput}
         handleSubmit={handleSubmit}
       />
-      <p>{searchInput}</p>
-      <p>{props.authToken ?? "Empty"}</p>
     </>
   );
 }

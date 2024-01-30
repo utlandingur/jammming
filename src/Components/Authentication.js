@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Authentication.module.css";
 
 export default function Authentication(props) {
   // for connecting to spotify
@@ -21,24 +22,49 @@ export default function Authentication(props) {
     props.updateAuthToken(token);
   }, []);
 
-  const handleOnClick = () => {
+  const logout = () => {
     localStorage.removeItem("token");
     props.updateAuthToken("");
   };
 
+  // Logout user after 1 hour
+  const logoutTimeout = () => {
+    setTimeout(logout, 3600000);
+  };
+
   return (
     <>
-      {!props.authToken && (
-        <a
-          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-        >
-          Login to Spotify
-        </a>
-      )}
+      {
+        // Login screen
+        !props.authToken && (
+          <div className={styles.background}>
+            <img
+              className={styles.spotifyLogo}
+              alt="Spotify Logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png"
+            />
+            <button onClick={logoutTimeout} className={styles.loginButton}>
+              <a
+                className={styles.link}
+                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+              >
+                Login to Spotify
+              </a>
+            </button>
+          </div>
+        )
+      }
 
-      {props.authToken && <button onClick={handleOnClick}>Logout</button>}
-
-      <p>{props.authToken ?? "Empty"}</p>
+      {
+        // Logout button
+        props.authToken && (
+          <div className={styles.xStack}>
+            <button onClick={logout} className={styles.logoutButton}>
+              Logout
+            </button>
+          </div>
+        )
+      }
     </>
   );
 }

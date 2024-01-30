@@ -8,16 +8,34 @@ function App() {
   const [authToken, setAuthToken] = useState("");
 
   const updateAuthToken = (val) => {
-    console.log("here");
     const tmp = val;
     setAuthToken(tmp);
   };
 
   return (
-    <>
-      <Authentication authToken={authToken} updateAuthToken={updateAuthToken} />
-      <SearchContainer authToken={authToken} />
-    </>
+    <div
+      style={{
+        backgroundColor: "#0B192F",
+        minHeight: "100vh",
+        padding: "5px 10px 10px 20px",
+      }}
+    >
+      {!authToken && (
+        <Authentication
+          authToken={authToken}
+          updateAuthToken={updateAuthToken}
+        />
+      )}
+      {authToken && (
+        <>
+          <Authentication
+            authToken={authToken}
+            updateAuthToken={updateAuthToken}
+          />
+          <SearchContainer authToken={authToken} />
+        </>
+      )}
+    </div>
   );
 }
 

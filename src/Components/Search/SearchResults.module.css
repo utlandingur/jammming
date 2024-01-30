@@ -1,0 +1,25 @@
+.track {
+    border: 1px white solid;
+    border-radius: 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    height: auto
+}
+
+.searchResultsContainer {
+    max-width: 30%;
+}
+
+.trackTitle {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.trackInfo {
+    margin-bottom: 0.25rem;
+}

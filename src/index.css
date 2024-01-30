@@ -16,3 +16,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+p, h1, h2, h3, h4 {
+  color: #0B192F;
+
+}
+/* Light blue #CCD6F6 
+Black #1E1E1E
+vibrant green #64FFDA
+Dark blue #0B192F */
