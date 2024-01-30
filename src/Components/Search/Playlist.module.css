@@ -34,9 +34,31 @@
     border: none;
 }
 
+.savePlaylist {
+    font-weight: bolder;
+    font-size: 1rem;
+    color: #282c34;
+    background-color: white;
+    border: none;
+    height: 2rem;
+    position: absolute;
+    right:0px;
+    padding: 0 15px;
+}
+
 .yStack {
     flex-direction: column;
     display: flex;
+    flex-grow: 1;
+}
+
+.xStack {
+    display: flex;
+    position:relative;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
 }
 
 .container {

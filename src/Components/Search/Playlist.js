@@ -28,10 +28,18 @@ export default function Playlist(props) {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.xStack}>
         <h2>Playlist</h2>
-        {/* Not finished */}
-        <button onClick={props.createPlaylist}>Save playlist</button>
+        {console.log(props.playlist)}
+        {/* Not finished with logic*/}
+        {props.playlist.length > 0 && (
+          <button
+            className={styles.savePlaylist}
+            onClick={props.createPlaylist}
+          >
+            Save
+          </button>
+        )}
       </div>
       <ul>{playlist}</ul>
     </div>
