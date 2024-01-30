@@ -28,7 +28,11 @@ export default function Playlist(props) {
 
   return (
     <div className={styles.container}>
-      <h2>Playlist</h2>
+      <div>
+        <h2>Playlist</h2>
+        {/* Not finished */}
+        <button onClick={props.createPlaylist}>Save playlist</button>
+      </div>
       <ul>{playlist}</ul>
     </div>
   );

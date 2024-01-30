@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import SearchbarContainer from "./SearchbarContainer";
 import SearchResults from "./SearchResults";
-import Playlist from "./Playlist";
 import { toBeEmpty } from "@testing-library/jest-dom/dist/matchers";
+import PlaylistContainer from "./PlaylistContainer";
 
 export default function SearchContainer(props) {
   const [tracks, setTracks] = useState([]);
@@ -25,7 +25,6 @@ export default function SearchContainer(props) {
 
   const removeFromPlaylist = (e) => {
     const trackIndex = e.target.parentNode.getAttribute("index");
-    console.log(playlist[trackIndex]);
     setPlaylist(playlist.filter((track) => track !== playlist[trackIndex]));
   };
 
@@ -50,7 +49,12 @@ export default function SearchContainer(props) {
           // isButtonclicked={isButtonclicked}
           // setIsButtonClicked={setIsButtonClicked}
         />
-        <Playlist playlist={playlist} removeFromPlaylist={removeFromPlaylist} />
+        <PlaylistContainer
+          playlist={playlist}
+          removeFromPlaylist={removeFromPlaylist}
+          userId={props.userId}
+          authToken={props.authToken}
+        />
       </div>
     </>
   );

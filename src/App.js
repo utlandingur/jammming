@@ -6,10 +6,16 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const [authToken, setAuthToken] = useState("");
+  const [userId, setUserId] = useState("");
 
   const updateAuthToken = (val) => {
     const tmp = val;
     setAuthToken(tmp);
+  };
+
+  const updateUserId = (val) => {
+    const tmp = val;
+    setUserId(tmp);
   };
 
   return (
@@ -31,8 +37,14 @@ function App() {
           <Authentication
             authToken={authToken}
             updateAuthToken={updateAuthToken}
+            userId={userId}
+            updateUserId={updateUserId}
           />
-          <SearchContainer authToken={authToken} />
+          <SearchContainer
+            authToken={authToken}
+            userId={userId}
+            updateUserId={updateUserId}
+          />
         </>
       )}
     </div>
