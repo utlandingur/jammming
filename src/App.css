@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -48,4 +49,8 @@ p, li {
 button {
   font-weight: bold;
   border-radius: 16px;
+}
+
+ul {
+  padding: 0px;
 }

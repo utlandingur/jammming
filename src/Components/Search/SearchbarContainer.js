@@ -10,17 +10,21 @@ export default function SearchContainer(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = "https://api.spotify.com/v1/search";
-    const { data } = await axios.get(endpoint, {
-      headers: {
-        Authorization: `Bearer ${props.authToken}`,
-      },
-      params: {
-        q: searchInput,
-        type: "track",
-      },
-    });
-    props.updateTracks(data.tracks.items);
+    try {
+      const endpoint = "https://api.spotify.com/v1/search";
+      const { data } = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${props.authToken}`,
+        },
+        params: {
+          q: searchInput,
+          type: "track",
+        },
+      });
+      props.updateTracks(data.tracks.items);
+    } catch (error) {
+      console.log("Empty search value");
+    }
   };
 
   return (

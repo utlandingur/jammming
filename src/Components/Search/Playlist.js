@@ -1,22 +1,25 @@
 import React from "react";
-import styles from "./SearchResults.module.css";
+import styles from "./Playlist.module.css";
 
-export default function SearchResults(props) {
-  const trackList = props.tracks.map((track, index) => {
+export default function Playlist(props) {
+  const playlist = props.playlist.map((track, index) => {
     return (
-      <div className={styles.searchResultsContainer} key={index}>
+      <div className={styles.playlistContainer} key={index}>
         <li index={index} className={styles.track}>
           <img
             className={styles.albumCover}
             alt="album cover"
-            src={props.tracks[index].album.images[2].url}
+            src={props.playlist[index].album.images[2].url}
           />
           <div className={styles.yStack}>
             <text className={styles.trackTitle}>{track.name}</text>
             <text className={styles.trackInfo}>{track.artists[0].name}</text>
           </div>
-          <button className={styles.addButton} onClick={props.addToPlaylist}>
-            +
+          <button
+            className={styles.removeButton}
+            onClick={props.removeFromPlaylist}
+          >
+            x
           </button>
         </li>
       </div>
@@ -25,8 +28,8 @@ export default function SearchResults(props) {
 
   return (
     <div className={styles.container}>
-      <h2>Search Results</h2>
-      <ul>{trackList}</ul>
+      <h2>Playlist</h2>
+      <ul>{playlist}</ul>
     </div>
   );
 }

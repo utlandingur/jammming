@@ -11,9 +11,9 @@
     gap: 10px
 }
 
-.searchResultsContainer {
+.playlistContainer {
     max-width: 100%;
-    min-width: 300px;
+    min-width: 300px
 }
 
 .trackTitle {
@@ -25,13 +25,13 @@
     margin-bottom: 0.25rem;
 }
 
-.addButton {
+.removeButton {
     font-weight: bolder;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     align-self: flex-end;
     background-color: transparent;
     color: #64FFDA;
-    border: 2px solid #64FFDA;
+    border: none;
 }
 
 .yStack {
