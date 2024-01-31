@@ -8,18 +8,20 @@ export default function PlaylistContainer(props) {
     const endpoint =
       "https://api.spotify.com/v1/users/" + props.userId + "/playlists";
     console.log(endpoint);
-    const { data } = await axios(endpoint, {
-      method: "GET",
+    console.log("Bearer " + props.authToken);
+
+    const { data } = await axios.post(endpoint, {
+      body: JSON.stringify({
+        name: "New Playlist",
+        description: "New playlist description",
+        public: false,
+      }),
       headers: {
         Authorization: "Bearer " + props.authToken,
         "Content-Type": "application/json",
       },
-      //   // Try body not data?
-      //   body: JSON.stringify({
-      //     name: "playlist",
-      //   }),
     });
-    // TODO - delete
+    console.log(typeof data);
     console.log(data);
   };
 

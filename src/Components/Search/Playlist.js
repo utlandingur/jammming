@@ -30,7 +30,6 @@ export default function Playlist(props) {
     <div className={styles.container}>
       <div className={styles.xStack}>
         <h2>Playlist</h2>
-        {console.log(props.playlist)}
         {/* Not finished with logic*/}
         {props.playlist.length > 0 && (
           <button
