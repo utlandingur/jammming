@@ -1,34 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./Authentication.module.css";
+import { getUserId } from "../Util/Spotify";
 
-// TODO - make a container and put two jsx components in sub-components
+// TODO - turn this into a provider instead of a component and stop passing down props to all components
 
 export default function Authentication(props) {
+  const { userId, updateUserId, authToken, updateAuthToken } = props;
+
   // for connecting to spotify
   const CLIENT_ID = "6a3a08780096466d998e3fcb5343bfe9";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
   const REDIRECT_URI = "http://localhost:3000/";
   const RESPONSE_TYPE = "token";
-  let count = 0;
-
-  // grab the spotify users ID
-  const getUserId = async () => {
-    try {
-      const endpoint = "https://api.spotify.com/v1/me";
-      const { data } = await axios.get(endpoint, {
-        headers: {
-          Authorization: `Bearer ${props.authToken}`,
-        },
-      });
-      const { id } = data;
-      console.log(id);
-      props.updateUserId(id);
-    } catch (error) {
-      console.log("Error getting user ID");
-    }
-  };
 
   const updateAuth = () => {
     let urlParams = new URLSearchParams(window.location.hash.replace("#", "?"));
@@ -37,33 +20,46 @@ export default function Authentication(props) {
     window.localStorage.setItem("token", token);
   };
 
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-    if (!token && hash) {
-      updateAuth();
-    }
-    props.updateAuthToken(token);
-    if (!props.userId && props.authToken) {
-      getUserId();
-    }
-  }, []);
+  useEffect(
+    () =>
+      async function () {
+        const hash = window.location.hash;
+        let token = window.localStorage.getItem("token");
+        if (!token && hash) {
+          updateAuth();
+        }
+        updateAuthToken(token);
+        if (!userId && authToken) {
+          try {
+            const id = await getUserId(authToken);
+            console.log(id);
+            updateUserId(id);
+            console.log(userId);
+          } catch (error) {
+            console.log("failed to update userId");
+          }
+        }
+
+        //TODO - Store the actual expiry time from the API response and use that to log someone out rather than using a timeout which is inaccurate
+      },
+    []
+  );
 
   const logout = () => {
     localStorage.removeItem("token");
-    props.updateAuthToken("");
+    updateAuthToken("");
   };
 
   // Logout user after 1 hour
   const logoutTimeout = () => {
-    setTimeout(logout, 3600000);
+    setTimeout(logout, 3000);
   };
 
   return (
     <>
       {
         // Login screen
-        !props.authToken && (
+        !authToken && (
           <div className={styles.background}>
             <img
               className={styles.spotifyLogo}
@@ -73,7 +69,7 @@ export default function Authentication(props) {
             <button onClick={logoutTimeout} className={styles.loginButton}>
               <a
                 className={styles.link}
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=playlist-modify-public&response_type=${RESPONSE_TYPE}`}
               >
                 Login to Spotify
               </a>
@@ -84,7 +80,7 @@ export default function Authentication(props) {
 
       {
         // Logout button
-        props.authToken && (
+        authToken && (
           <div className={styles.xStack}>
             <button onClick={logout} className={styles.logoutButton}>
               Logout

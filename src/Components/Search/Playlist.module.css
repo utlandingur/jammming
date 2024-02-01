@@ -34,17 +34,18 @@
     border: none;
 }
 
-.savePlaylist {
+.createButton {
     font-weight: bolder;
     font-size: 1rem;
     color: #282c34;
     background-color: white;
     border: none;
-    height: 2rem;
-    position: absolute;
-    right:0px;
+    height: 1.8rem;
+    right:50px;
     padding: 0 15px;
+    border-radius: 8px;
 }
+
 
 .yStack {
     flex-direction: column;
@@ -59,6 +60,8 @@
     align-items: center;
     max-width: 500px;
     width: 100%;
+    gap: 10px;
+    height: fit-content;
 }
 
 .container {
@@ -73,3 +76,13 @@
 .albumCover {
     border-radius: 16px;
 }
+
+.input {
+    border: 1 solid black;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 0 10px;
+    font-weight: bold;
+    height: 80%;
+}
+

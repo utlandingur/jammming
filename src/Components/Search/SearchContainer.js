@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import SearchbarContainer from "./SearchbarContainer";
 import SearchResults from "./SearchResults";
-import { toBeEmpty } from "@testing-library/jest-dom/dist/matchers";
 import PlaylistContainer from "./PlaylistContainer";
+import styles from "./SearchContainer.module.css";
 
 export default function SearchContainer(props) {
+  const { userId, authToken } = props;
   const [tracks, setTracks] = useState([]);
   const [playlist, setPlaylist] = useState([]);
   // const [isButtonclicked, setIsButtonClicked] = useState(false);
-
-  const updateTracks = (val) => {
-    const tmp = val;
-    setTracks(tmp);
-  };
 
   // After clicking the add button the song is added to top of playlist
   // and removed from tracks
@@ -30,30 +26,15 @@ export default function SearchContainer(props) {
 
   return (
     <>
-      <SearchbarContainer
-        authToken={props.authToken}
-        updateTracks={updateTracks}
-      />
-      <div
-        style={{
-          display: "flex",
-          gap: "30px",
-          width: "100%",
-          justifyContent: "space-around",
-          marginTop: "40px",
-        }}
-      >
-        <SearchResults
-          tracks={tracks}
-          addToPlaylist={addToPlaylist}
-          // isButtonclicked={isButtonclicked}
-          // setIsButtonClicked={setIsButtonClicked}
-        />
+      <SearchbarContainer authToken={authToken} updateTracks={setTracks} />
+      <div className={styles.resultsAndPlaylistContainer}>
+        <SearchResults tracks={tracks} addToPlaylist={addToPlaylist} />
         <PlaylistContainer
           playlist={playlist}
           removeFromPlaylist={removeFromPlaylist}
-          userId={props.userId}
-          authToken={props.authToken}
+          userId={userId}
+          authToken={authToken}
+          setPlaylist={setPlaylist}
         />
       </div>
     </>

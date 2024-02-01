@@ -3,7 +3,9 @@ import Searchbar from "./Searchbar";
 import axios from "axios";
 
 export default function SearchContainer(props) {
+  const { updateTracks } = props;
   const [searchInput, setSearchInput] = useState("");
+
   const handleUserInput = ({ target }) => {
     setSearchInput(target.value);
   };
@@ -21,7 +23,7 @@ export default function SearchContainer(props) {
           type: "track",
         },
       });
-      props.updateTracks(data.tracks.items);
+      updateTracks(data.tracks.items);
     } catch (error) {
       console.log("Empty search value");
     }
