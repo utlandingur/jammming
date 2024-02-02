@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./Authentication.module.css";
 import { getUserId } from "../Util/Spotify";
 
@@ -34,7 +34,6 @@ export default function Authentication(props) {
             const id = await getUserId(authToken);
             console.log(id);
             updateUserId(id);
-            console.log(userId);
           } catch (error) {
             console.log("failed to update userId");
           }
@@ -42,7 +41,7 @@ export default function Authentication(props) {
 
         //TODO - Store the actual expiry time from the API response and use that to log someone out rather than using a timeout which is inaccurate
       },
-    []
+    [authToken, updateAuthToken, updateUserId, userId]
   );
 
   const logout = () => {
