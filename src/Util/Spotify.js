@@ -32,7 +32,7 @@ export const changeTracksInPlaylist = async (
   const endpoint = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
 
   try {
-    const { data } = await axios.post(
+    await axios.post(
       endpoint,
       {
         uris: trackUris,
